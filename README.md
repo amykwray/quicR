@@ -17,6 +17,8 @@ library(knitr)
 ### Cleaning up your dataset:
 To start off, you will need 2 data frames: 1 with the raw output from the plate reader, for which the first column should identify each well. You will also need a metadata file that relates your metadata information to each well. this MUST contain the exact format in the exact order where column names must start with "well", "names" (sample names, any unique identifier at the SAMPLE level [replicates are ok]), "type" must be one of the following: pos_ctrl, sample, neg_ctrl, or blank. "concentration" must include the dilution factor from the original tissue (so if the ORIGINAL tissue aliquot is diluted 1:1000, the dilution factor would be -3, then if you diluted that 1:10 when adding to wells it would be -4). Finally, you MUST include "run_ID", which can be any unique identifier that you use to differentiate a unique plate or run. Other metadata (species, tissue type, animal ID, etc) may be included in later rows. 
 
+For this vignette, we use simulated data, to see how data were simulated please see R code "rt_quic_data_simuilation". 
+
 ```{r echo=TRUE}
 df<-data.frame(read.csv(file="RTQ_simulated_data.csv"))
 meta<-data.frame(read.csv(file="RTQ_simulated_metadata.csv"))
