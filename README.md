@@ -2,7 +2,7 @@
 
 ## Getting Started
 ### Exporting data from BMG FLUOstar omega microplate reader & similar machines: 
-After the RT-QuIC run, export the raw data using the "excel report" button. Do not include the run info. Do not transpose. To use this script, make sure that data are in the format where the COLUMN A is wells, COLUMN B is "content" (for example, whatever you named the samples in the machine's plate layout), with ROW 1 showing labels (e.g., 1C should say something like ###"raw data" then the filter info). ROW 2 should show the time period -- it doesn't really matter how it is formatted. You will also need a metadata file that corresponds to your Sample IDs somehow.
+After the RT-QuIC run, export the raw data using the "excel report" button. Do not include the run info. Do not transpose. To use this script, make sure that data are in the format where the COLUMN A is wells, COLUMN B is "content" (for example, whatever you named the samples in the machine's plate layout), with ROW 1 showing labels (e.g., 1C should say something like "raw data" then the filter info). ROW 2 should show the time period -- it doesn't really matter how it is formatted. You will also need a metadata file that corresponds to your Sample IDs somehow.
 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
