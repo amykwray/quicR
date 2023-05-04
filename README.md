@@ -71,6 +71,7 @@ raw_fluor_plot<-ggplot(aes(x=timepoint, y=as.numeric(raw_fluor), color=as.factor
 ```{r echo=FALSE}
 raw_fluor_plot
 ```
+![image](https://user-images.githubusercontent.com/70864453/236318197-e67fefc8-01ac-4733-ab59-06ca5965c6b5.png)
 
 Plot percent fluorescence:
 ```{r echo=TRUE}
@@ -136,6 +137,7 @@ raw_fluor_plot<-ggplot(aes(x=as.integer(timepoint), y=raw_fluor, color=as.factor
   annotate("text", label="threshold", x=4, y=threshold_all10+(threshold_all10/20))
 raw_fluor_plot
 ```
+![image](https://user-images.githubusercontent.com/70864453/236318265-51ecf31c-4afa-4342-b7e5-3f16448f4604.png)
 
 
 ### Plot percent fluorescence:
@@ -167,6 +169,7 @@ p<-ggplot(aes(x=timepoint, y=percent_fluor, group=well, color=sample_ID), data=d
   labs(color="Sample ID")+ylab("percent total fluorescence")+xlab("cycle")
 p
 ```
+![image](https://user-images.githubusercontent.com/70864453/236318005-ba773232-5975-4958-98c6-542e5cc89f3e.png)
 
 ### Determine ranges for samples that cross threshold
 Note that here, we are selecting replicates that cross the threshold, so samples with inconsistent replicates are not accounted for. I'm not sure if there is currently a preferred way to calculate the average time to threshold for samples where some replicates never cross the threshold, but keep in mind for data interpretation to use caution with inconsistent within-sample replicates.
@@ -208,3 +211,4 @@ avg_tt<-as.data.frame(avg_tt)
 q<-ggplot(aes(x=as.factor(sample_ID), y=avg_tt_hours, color=as.factor(sample_ID)), data=avg_tt)+geom_point()+ geom_pointrange(mapping=aes(ymin=avg_tt_hours-sd_tt_hours, ymax=avg_tt_hours+sd_tt_hours), data=avg_tt, size=1)+ labs(color="Sample ID") + ylab("hours to threshold (mean \u00b1 SD) ")+xlab("sample")+theme_classic()
 q
 ```
+![image](https://user-images.githubusercontent.com/70864453/236318122-5dcd5adf-d127-47f3-9020-09c285cf2d4d.png)
