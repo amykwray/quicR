@@ -72,7 +72,7 @@ Plotting a typical fluorescence vs. time plot:
 df_melt<-df2%>%
  pivot_longer(cols= -c(well, sample_ID, type, concentration, run_ID), names_to="timepoint",
               values_to="raw_fluor")
-df_melt$percent_fluor<-df_melt$raw_fluor/max_fl
+df_melt$percent_fluor<-as.numeric(df_melt$raw_fluor)/max_fl
 df_melt$timepoint<-str_remove(df_melt$timepoint, "t")
 df_melt$timepoint<-as.integer(df_melt$timepoint)
 ```
