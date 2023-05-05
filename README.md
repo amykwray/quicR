@@ -1,13 +1,19 @@
 # quicR
 
 ## Getting Started
-### Exporting data from BMG FLUOstar omega microplate reader & similar machines: 
-After the RT-QuIC run, export the raw data using the "excel report" button. Do not include the run info. Do not transpose. To use this script, make sure that data are in the format where the COLUMN A is wells, COLUMN B is "content" (for example, whatever you named the samples in the machine's plate layout), with ROW 1 showing labels (e.g., 1C should say something like "raw data" then the filter info). ROW 2 should show the time period -- it doesn't really matter how it is formatted. You will also need a metadata file that corresponds to your Sample IDs somehow.
+### Exporting data from BMG FLUOstar Omega microplate reader & similar machines: 
+After the RT-QuIC run, export the raw data using the "excel report" button. Do not include the run info. Do not transpose. Convert the excel file to a CSV. If the file has two header rows, remove the first row and rename cells A1 and B1 so they are labelled as "Well" and "Content". You can do this manually or using R code such as:
 
+```{r echo=TRUE}
+df<-df[-1,]
+names(df)[1:2]<-c("Well","Content")
+```
 
+To use the following R script, make sure that data are in the format where the the first header (i.e., cell A1) is "Well", the second header (cell B1) is "Content" (for example, whatever you named the samples in the machine's plate layout), and the following headers indicate the cycle during which fluorescence values were taken (for example, this may be listed as "0 h", "0 h 15 min", "0 h 30 min"). It doesn't really matter how the headers are formatted since we will relabel these headings, but it is important to know what time intervals measurements were taken. You will also need a metadata file that corresponds to your unique Sample IDs somehow.
+
+Begin by loading dependencies & setting your working directory:
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 setwd("C:/Users/awray/Desktop/quicR")
-library(reshape2)
 library(tidyverse)
 library(data.table)
 library(wesanderson)
@@ -27,7 +33,9 @@ meta<-data.frame(read.csv(file="RTQ_simulated_metadata.csv"))
 ```{r echo=FALSE}
 dim(df)
 ```
-input information about your run (either how many cycles you ran or how many cycles you want to cutoff to):
+input information about your run.
+n_cycles indicates either how many cycles you ran or how many cycles you want to cutoff to, n_neg_ctrl_reps indicates how many negative control replicates were included, max_fl indicates the maximum fluorescence values, and meta_vars indicates the number of metadata variables you have provided.
+
 ```{r echo=TRUE}
 n_cycles<-100
 n_neg_ctrl_reps<-6
@@ -129,7 +137,7 @@ threshold_t1<-(mean(df2$t1)+(10*sd(df2$t1)))
 threshold_t1
 ```
 
-### Plot fluorescence data with the threshold of your choice:
+### Plot fluorescence data with the threshold of your choice. You may change the threshold you want to plot by adjusting the "annotate" parameter. 
 
 ```{r echo=TRUE}
 raw_fluor_plot<-ggplot(aes(x=as.integer(timepoint), y=raw_fluor, color=as.factor(type), lty=as.factor(concentration)), data=df_melt)+
@@ -153,7 +161,7 @@ percent_fluor_plot<-ggplot(aes(x=as.integer(timepoint), y=percent_fluor, color=a
 percent_fluor_plot
 ```
 
-I'm not really sure what the best way to calculate threshold is. I think for the R package, giving people the option to set which type of threshold they want to use would be a nice option. I think I prefer using the average of all samples for t2-t8 +10 SD personally so maybe that will be the default. 
+I'm not really sure what the best way to calculate threshold is. I think for the R package, giving people the option to set which type of threshold they want to use would be a nice option. I think I prefer using the average of all samples for t2-t8 +10 SD personally so maybe that will be the default. Other types of threshold calculations can also be included.
 
 ## Calculating time to threshold for samples
 
