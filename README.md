@@ -7,7 +7,7 @@ After the RT-QuIC run, export the raw data using the "excel report" button. Do n
 
 ```{r echo=TRUE}
 df<-df[-1,]
-names(df)[1:2]<-c("Well","Content")
+names(df)[1:2]<-c("well","content")
 ```
 
 To use the following R script, make sure that data are in the format where the the first header (i.e., cell A1) is "Well", the second header (cell B1) is "Content" (for example, whatever you named the samples in the machine's plate layout), and the following headers indicate the cycle during which fluorescence values were taken (for example, this may be listed as "0 h", "0 h 15 min", "0 h 30 min"). It doesn't really matter how the headers are formatted since we will relabel these headings, but it is important to know what time intervals measurements were taken. You will also need a metadata file that corresponds to your unique Sample IDs somehow.
