@@ -1,4 +1,5 @@
 # quicR
+This R script processes raw data from real time quaking-induced conversion assays, providing a more replicable option than using point-and-click interfaces. 
 
 ## Getting Started
 ### Exporting data from BMG FLUOstar Omega microplate reader & similar machines: 
